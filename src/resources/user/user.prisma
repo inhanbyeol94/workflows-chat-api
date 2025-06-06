@@ -1,9 +1,12 @@
 /// 사용자
 model User {
   id              Int             @id @default(autoincrement()) /// 아이디
-  role            Int             @db.SmallInt /// 권한 1: 관리자, 2: 사용자
+  role            Int             @db.SmallInt /// 권한 99: 관리자, 1: 사용자
   name            String          @db.VarChar() /// 이름
   profileImageUrl String?         @map("profile_image_url") @db.VarChar() /// 프로필 사진
+  email           String?         @db.VarChar() /// 이메일
+  phoneNumber     String?         @map("phone_number") @db.VarChar() /// 전화번호 000-0000-0000
+  employeeCode    String?         @map("employee_code") @db.VarChar() /// 사원코드
   createdAt       DateTime        @default(now()) @map("created_at") @db.Timestamptz(3) /// 생성일
   updatedAt       DateTime?       @updatedAt @map("updated_at") @db.Timestamptz(3) /// 수정일
   deletedAt       DateTime?       @map("deleted_at") @db.Timestamptz(3) /// 삭제일

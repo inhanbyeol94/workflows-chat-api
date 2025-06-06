@@ -1,9 +1,10 @@
 import { Database } from '../../core/database/database';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { PasswordService } from '../../core/password/password.service';
 import { UserCredentialService } from '../user-credential/user-credential.service';
 import { UserUpdateDto } from './dto/user-update.dto';
+import { UserChangePasswordDto } from './dto/user-change-password.dto';
 
 @Injectable()
 export class UserService {
@@ -37,6 +38,10 @@ export class UserService {
         });
     }
 
+    /**
+     * id로 사용자 조회
+     * 사용자 id로 사용자 정보를 조회하며, 조회 결과가 없으면 NotFoundException을 던집니다.
+     * */
     async findByIdOrThrow(id: number) {
         const resource = await this.prisma.user.findUnique({
             where: {
@@ -48,6 +53,10 @@ export class UserService {
         return resource;
     }
 
+    /**
+     * id로 사용자 업데이트
+     * 사용자 id로 사용자를 업데이트하며, 조회 결과가 없으면 NotFoundException을 던집니다.
+     * */
     async update(id: number, data: UserUpdateDto) {
         await this.findByIdOrThrow(id);
         return this.prisma.user.update({
@@ -56,6 +65,28 @@ export class UserService {
                 deletedAt: null,
             },
             data,
+        });
+    }
+
+    /**
+     * id로 사용자 논리삭제
+     * 사용자 id로 사용자를 논리 삭제합니다 서로관계인 credential도 함께 논리 삭제됩니다.
+     * */
+    async softDelete(id: number) {
+        await this.findByIdOrThrow(id);
+        return this.prisma.user.update({
+            where: {
+                id,
+                deletedAt: null,
+            },
+            data: {
+                deletedAt: new Date(),
+                credential: {
+                    update: {
+                        deletedAt: new Date(),
+                    },
+                },
+            },
         });
     }
 }
