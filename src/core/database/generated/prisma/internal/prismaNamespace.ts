@@ -607,6 +607,9 @@ export const UserScalarFieldEnum = {
   role: 'role',
   name: 'name',
   profileImageUrl: 'profileImageUrl',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  employeeCode: 'employeeCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -621,7 +624,8 @@ export const UserCredentialScalarFieldEnum = {
   password: 'password',
   pepper: 'pepper',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type UserCredentialScalarFieldEnum = (typeof UserCredentialScalarFieldEnum)[keyof typeof UserCredentialScalarFieldEnum]

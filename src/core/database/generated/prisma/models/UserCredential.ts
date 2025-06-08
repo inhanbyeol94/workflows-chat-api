@@ -40,6 +40,7 @@ export type UserCredentialMinAggregateOutputType = {
   pepper: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type UserCredentialMaxAggregateOutputType = {
@@ -49,6 +50,7 @@ export type UserCredentialMaxAggregateOutputType = {
   pepper: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type UserCredentialCountAggregateOutputType = {
@@ -58,6 +60,7 @@ export type UserCredentialCountAggregateOutputType = {
   pepper: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -77,6 +80,7 @@ export type UserCredentialMinAggregateInputType = {
   pepper?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type UserCredentialMaxAggregateInputType = {
@@ -86,6 +90,7 @@ export type UserCredentialMaxAggregateInputType = {
   pepper?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
 }
 
 export type UserCredentialCountAggregateInputType = {
@@ -95,6 +100,7 @@ export type UserCredentialCountAggregateInputType = {
   pepper?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -191,6 +197,7 @@ export type UserCredentialGroupByOutputType = {
   pepper: string
   createdAt: Date
   updatedAt: Date | null
+  deletedAt: Date | null
   _count: UserCredentialCountAggregateOutputType | null
   _avg: UserCredentialAvgAggregateOutputType | null
   _sum: UserCredentialSumAggregateOutputType | null
@@ -223,6 +230,7 @@ export type UserCredentialWhereInput = {
   pepper?: Prisma.StringFilter<"UserCredential"> | string
   createdAt?: Prisma.DateTimeFilter<"UserCredential"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"UserCredential"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"UserCredential"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -233,6 +241,7 @@ export type UserCredentialOrderByWithRelationInput = {
   pepper?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -246,6 +255,7 @@ export type UserCredentialWhereUniqueInput = Prisma.AtLeast<{
   pepper?: Prisma.StringFilter<"UserCredential"> | string
   createdAt?: Prisma.DateTimeFilter<"UserCredential"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"UserCredential"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"UserCredential"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -256,6 +266,7 @@ export type UserCredentialOrderByWithAggregationInput = {
   pepper?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCredentialCountOrderByAggregateInput
   _avg?: Prisma.UserCredentialAvgOrderByAggregateInput
   _max?: Prisma.UserCredentialMaxOrderByAggregateInput
@@ -273,6 +284,7 @@ export type UserCredentialScalarWhereWithAggregatesInput = {
   pepper?: Prisma.StringWithAggregatesFilter<"UserCredential"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UserCredential"> | Date | string
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"UserCredential"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"UserCredential"> | Date | string | null
 }
 
 export type UserCredentialCreateInput = {
@@ -281,6 +293,7 @@ export type UserCredentialCreateInput = {
   pepper: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutCredentialInput
 }
 
@@ -291,6 +304,7 @@ export type UserCredentialUncheckedCreateInput = {
   pepper: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type UserCredentialUpdateInput = {
@@ -299,6 +313,7 @@ export type UserCredentialUpdateInput = {
   pepper?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutCredentialNestedInput
 }
 
@@ -309,6 +324,7 @@ export type UserCredentialUncheckedUpdateInput = {
   pepper?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCredentialCreateManyInput = {
@@ -318,6 +334,7 @@ export type UserCredentialCreateManyInput = {
   pepper: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type UserCredentialUpdateManyMutationInput = {
@@ -326,6 +343,7 @@ export type UserCredentialUpdateManyMutationInput = {
   pepper?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCredentialUncheckedUpdateManyInput = {
@@ -335,6 +353,7 @@ export type UserCredentialUncheckedUpdateManyInput = {
   pepper?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCredentialNullableScalarRelationFilter = {
@@ -349,6 +368,7 @@ export type UserCredentialCountOrderByAggregateInput = {
   pepper?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type UserCredentialAvgOrderByAggregateInput = {
@@ -362,6 +382,7 @@ export type UserCredentialMaxOrderByAggregateInput = {
   pepper?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type UserCredentialMinOrderByAggregateInput = {
@@ -371,6 +392,7 @@ export type UserCredentialMinOrderByAggregateInput = {
   pepper?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type UserCredentialSumOrderByAggregateInput = {
@@ -415,6 +437,7 @@ export type UserCredentialCreateWithoutUserInput = {
   pepper: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type UserCredentialUncheckedCreateWithoutUserInput = {
@@ -423,6 +446,7 @@ export type UserCredentialUncheckedCreateWithoutUserInput = {
   pepper: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type UserCredentialCreateOrConnectWithoutUserInput = {
@@ -447,6 +471,7 @@ export type UserCredentialUpdateWithoutUserInput = {
   pepper?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCredentialUncheckedUpdateWithoutUserInput = {
@@ -455,6 +480,7 @@ export type UserCredentialUncheckedUpdateWithoutUserInput = {
   pepper?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -466,6 +492,7 @@ export type UserCredentialSelect<ExtArgs extends runtime.Types.Extensions.Intern
   pepper?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCredential"]>
 
@@ -476,6 +503,7 @@ export type UserCredentialSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   pepper?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCredential"]>
 
@@ -486,6 +514,7 @@ export type UserCredentialSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   pepper?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCredential"]>
 
@@ -496,9 +525,10 @@ export type UserCredentialSelectScalar = {
   pepper?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type UserCredentialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "loginId" | "password" | "pepper" | "createdAt" | "updatedAt", ExtArgs["result"]["userCredential"]>
+export type UserCredentialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "loginId" | "password" | "pepper" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["userCredential"]>
 export type UserCredentialInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -542,6 +572,10 @@ export type $UserCredentialPayload<ExtArgs extends runtime.Types.Extensions.Inte
      * 수정일
      */
     updatedAt: Date | null
+    /**
+     * 삭제일
+     */
+    deletedAt: Date | null
   }, ExtArgs["result"]["userCredential"]>
   composites: {}
 }
@@ -972,6 +1006,7 @@ export interface UserCredentialFieldRefs {
   readonly pepper: Prisma.FieldRef<"UserCredential", 'String'>
   readonly createdAt: Prisma.FieldRef<"UserCredential", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UserCredential", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"UserCredential", 'DateTime'>
 }
     
 

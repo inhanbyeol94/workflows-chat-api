@@ -1,7 +1,7 @@
 /// 사용자
 model User {
   id              Int             @id @default(autoincrement()) /// 아이디
-  role            Int             @db.SmallInt /// 권한 99: 관리자, 1: 사용자
+  role            Int             @db.SmallInt /// 권한 1: 일반, 99: 마스터
   name            String          @db.VarChar() /// 이름
   profileImageUrl String?         @map("profile_image_url") @db.VarChar() /// 프로필 사진
   email           String?         @db.VarChar() /// 이메일

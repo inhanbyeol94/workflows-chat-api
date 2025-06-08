@@ -10,6 +10,17 @@ export class UserCredentialService {
         private passwordService: PasswordService,
     ) {}
 
+    async findByLoginIdWithUserOrThrow(loginId: string) {
+        const resource = await this.prisma.userCredential.findFirst({
+            where: { loginId, deletedAt: null },
+            include: {
+                user: true,
+            },
+        });
+        if (!resource) throw new NotFoundException('아이디를 찾을 수 없습니다.');
+        return resource;
+    }
+
     async checkLoginIdDuplicate(loginId: string, id?: number | null) {
         const resource = await this.prisma.userCredential.findFirst({
             where: { loginId, user: { deletedAt: null } },
