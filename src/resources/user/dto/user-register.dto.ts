@@ -17,6 +17,22 @@ export class UserRegisterDto {
     name: string;
 
     @IsOptional()
+    @IsNotEmpty()
     @IsString()
     profileImageUrl: string | null;
+
+    @IsOptional()
+    @IsNotEmpty()
+    @IsString()
+    email: string | null;
+
+    @IsOptional()
+    @IsNotEmpty()
+    @IsString()
+    phoneNumber: string | null;
+
+    @IsOptional()
+    @IsNotEmpty()
+    @IsString()
+    employeeCode: string | null;
 }

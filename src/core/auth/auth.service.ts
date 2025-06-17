@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserCredentialService } from '../../resources/user-credential/user-credential.service';
+import { UserCredentialService } from '../../resources/user/credential/user-credential.service';
 import { ConfigService } from '@nestjs/config';
 import { AuthSignInDto } from './dto/auth-sign-in.dto';
 import { PasswordService } from '../password/password.service';

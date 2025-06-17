@@ -24,8 +24,8 @@ export * as $Enums from './enums'
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more UserCredentials
+ * const userCredentials = await prisma.userCredential.findMany()
  * ```
  * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -37,14 +37,14 @@ export { Prisma }
 
 
 /**
- * Model User
- * 사용자
- */
-export type User = Prisma.UserModel
-/**
  * Model UserCredential
  * 사용자 인증정보
  */
 export type UserCredential = Prisma.UserCredentialModel
+/**
+ * Model User
+ * 사용자
+ */
+export type User = Prisma.UserModel
 
 

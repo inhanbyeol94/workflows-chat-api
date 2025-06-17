@@ -356,11 +356,6 @@ export type UserCredentialUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type UserCredentialNullableScalarRelationFilter = {
-  is?: Prisma.UserCredentialWhereInput | null
-  isNot?: Prisma.UserCredentialWhereInput | null
-}
-
 export type UserCredentialCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   loginId?: Prisma.SortOrder
@@ -397,6 +392,31 @@ export type UserCredentialMinOrderByAggregateInput = {
 
 export type UserCredentialSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+}
+
+export type UserCredentialNullableScalarRelationFilter = {
+  is?: Prisma.UserCredentialWhereInput | null
+  isNot?: Prisma.UserCredentialWhereInput | null
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type UserCredentialCreateNestedOneWithoutUserInput = {

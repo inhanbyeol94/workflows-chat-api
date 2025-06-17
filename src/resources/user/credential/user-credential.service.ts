@@ -1,17 +1,17 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { Database } from '../../core/database/database';
-import { PasswordService } from '../../core/password/password.service';
+import { PasswordService } from '../../../core/password/password.service';
 import { UserCredentialChangePassword } from './user-credential.type';
+import { UserCredentialRepository } from './user-credential.repository';
 
 @Injectable()
 export class UserCredentialService {
     constructor(
-        private prisma: Database,
+        private repository: UserCredentialRepository,
         private passwordService: PasswordService,
     ) {}
 
     async findByLoginIdWithUserOrThrow(loginId: string) {
-        const resource = await this.prisma.userCredential.findFirst({
+        const resource = await this.repository.findFirst({
             where: { loginId, deletedAt: null },
             include: {
                 user: true,
@@ -22,7 +22,7 @@ export class UserCredentialService {
     }
 
     async checkLoginIdDuplicate(loginId: string, id?: number | null) {
-        const resource = await this.prisma.userCredential.findFirst({
+        const resource = await this.repository.findFirst({
             where: { loginId, user: { deletedAt: null } },
         });
         //비어있으면 true, 아이디가 리소스 아이디랑 맞지않으면 false
@@ -32,7 +32,7 @@ export class UserCredentialService {
     }
 
     async findByIdOrThrow(id: number) {
-        const resource = await this.prisma.userCredential.findUnique({
+        const resource = await this.repository.findUnique({
             where: { id, user: { deletedAt: null } },
         });
         if (!resource) throw new NotFoundException();
@@ -55,7 +55,7 @@ export class UserCredentialService {
         const pepper = this.passwordService.getPepper();
         const hash = await this.passwordService.hash(newPassword, pepper);
 
-        return this.prisma.userCredential.update({
+        return this.repository.update({
             where: { id },
             data: {
                 password: hash,
