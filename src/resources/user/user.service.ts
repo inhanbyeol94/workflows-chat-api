@@ -6,9 +6,6 @@ import { UserModifyDto } from './dto/user-modify.dto';
 import { UserRepository } from './user.repository';
 import { UserArgsFactory } from './user.args.factory';
 
-/**
- * TEST
- * */
 @Injectable()
 export class UserService {
     constructor(
@@ -21,6 +18,7 @@ export class UserService {
      * ### 등록
      * @role 관리
      * @desc 사용자 등록 시, 로그인 아이디 중복 체크를 수행하며, 비밀번호는 암호회된 후 저장됩니다.
+     * @throws ConflictException 로그인 아이디가 중복된 경우
      * */
     async register(data: UserRegisterDto) {
         await this.userCredentialService.checkLoginIdDuplicate(data.loginId);
