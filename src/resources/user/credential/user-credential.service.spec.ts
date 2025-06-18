@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserCredentialService } from './user-credential.service';
-import { UserCredentialRepository } from './user-credential.repository';
-import { UserCredentialArgsFactory } from './user-credential.args.factory';
-import { NotFoundException, ConflictException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { UserCredentialModule } from './user-credential.module';
 import { UserModule } from '../user.module';
 import { DatabaseModule } from '../../../core/database/database.module';
