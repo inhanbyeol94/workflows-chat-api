@@ -4,12 +4,9 @@ import { UserModule } from './user.module';
 import { INestApplication } from '@nestjs/common';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { DatabaseModule } from '../../core/database/database.module';
-import dotenv from 'dotenv';
 import { UserCredentialModule } from './credential/user-credential.module';
 import { PasswordModule } from '../../core/password/password.module';
 import { UserModifyDto } from './dto/user-modify.dto';
-
-dotenv.config();
 
 // 실제 DB와 연동되는 통합 테스트입니다.
 describe('유저 서비스 통합 테스트 (UserService Integration)', () => {
