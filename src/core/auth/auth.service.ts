@@ -34,7 +34,7 @@ export class AuthService {
         );
     }
 
-    private getPayload(token: string) {
+    getPayload(token: string) {
         return this.jwtService.decode<{ id: number; role: number } | null>(token);
     }
 }
