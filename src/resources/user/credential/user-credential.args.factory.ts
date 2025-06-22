@@ -1,5 +1,5 @@
-import { Prisma } from '../../../core/database/generated/prisma';
 import { UserCredentialFindFirstArgs, UserCredentialUpdateArgs } from '../../../core/database/generated/prisma/models/UserCredential';
+import { Prisma } from '../../../core/database/generated/prisma/client';
 
 export class UserCredentialArgsFactory {
     static findByLoginIdWithUserOrThrow(loginId: string) {

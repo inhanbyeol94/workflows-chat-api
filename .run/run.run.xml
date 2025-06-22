@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="run" type="CompoundRunConfigurationType">
+    <toRun name="start:debug" type="js.build_tools.npm" />
+    <toRun name="prisma db" type="ShConfigurationType" />
+    <toRun name="prisma studio" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

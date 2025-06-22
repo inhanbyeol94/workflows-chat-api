@@ -1,7 +1,7 @@
 import { UserRegisterDto } from './dto/user-register.dto';
-import { Prisma } from '../../core/database/generated/prisma';
 import { UserCreateArgs, UserFindUniqueArgs, UserUpdateArgs } from '../../core/database/generated/prisma/models/User';
 import { UserModifyDto } from './dto/user-modify.dto';
+import { Prisma } from '../../core/database/generated/prisma/client';
 
 export class UserArgsFactory {
     static register(data: UserRegisterDto, pepper: string, hash: string) {

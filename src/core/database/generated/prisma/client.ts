@@ -24,8 +24,8 @@ export * as $Enums from './enums'
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more UserCredentials
- * const userCredentials = await prisma.userCredential.findMany()
+ * // Fetch zero or more Channels
+ * const channels = await prisma.channel.findMany()
  * ```
  * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -36,6 +36,21 @@ export { Prisma }
 
 
 
+/**
+ * Model Channel
+ * 채널
+ */
+export type Channel = Prisma.ChannelModel
+/**
+ * Model ChannelUsers
+ * 채널에 속한 사용자 (비밀채널인 경우)
+ */
+export type ChannelUsers = Prisma.ChannelUsersModel
+/**
+ * Model Message
+ * 메세지
+ */
+export type Message = Prisma.MessageModel
 /**
  * Model UserCredential
  * 사용자 인증정보

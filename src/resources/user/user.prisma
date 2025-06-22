@@ -10,7 +10,10 @@ model User {
   createdAt       DateTime        @default(now()) @map("created_at") @db.Timestamptz(3) /// 생성일
   updatedAt       DateTime?       @updatedAt @map("updated_at") @db.Timestamptz(3) /// 수정일
   deletedAt       DateTime?       @map("deleted_at") @db.Timestamptz(3) /// 삭제일
-  credential      UserCredential? /// 인증정보
+  credential      UserCredential? /// 인증정보 
+  channels        ChannelUsers[] /// 참여한 채널
+  messages        Message[] /// 작성한 메세지 
+  createdChannels Channel[] /// 생성한 채널
 
   @@map("user")
 }

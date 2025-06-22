@@ -4,7 +4,7 @@ import { PasswordService } from '../../core/password/password.service';
 import { UserCredentialService } from './credential/user-credential.service';
 import { UserModifyDto } from './dto/user-modify.dto';
 import { UserRepository } from './user.repository';
-import { UserArgsFactory } from './user.args.factory';
+import { UserArgsFactory } from './user.args-factory';
 
 @Injectable()
 export class UserService {
@@ -75,5 +75,12 @@ export class UserService {
         const resource = await this.repository.findUnique(UserArgsFactory.findByIdOrThrow(id));
         if (!resource) throw new NotFoundException();
         return resource;
+    }
+
+    /**
+     * ### 사용자 전체 조회 (아이디만 반환)
+     * */
+    async findManyIds() {
+        return this.repository.findMany({ where: { deletedAt: null }, select: { id: true } });
     }
 }

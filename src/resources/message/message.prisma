@@ -1,0 +1,15 @@
+/// 메세지
+model Message {
+  id        Int       @id @default(autoincrement()) /// 아이디
+  content   String /// 메세지 내용
+  userId    Int       @map("user_id") /// 사용자 아이디
+  channelId Int       @map("channel_id") /// 채널 아이디
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3) /// 생성일
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3) /// 수정일
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3) /// 삭제일 (null인 경우 삭제되지 않음)
+
+  user    User    @relation(fields: [userId], references: [id]) /// 사용자
+  channel Channel @relation(fields: [channelId], references: [id]) /// 채널
+
+  @@map("message")
+}
