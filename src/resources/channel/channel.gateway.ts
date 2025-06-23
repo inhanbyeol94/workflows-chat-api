@@ -1,37 +1,23 @@
-import {
-    ConnectedSocket,
-    MessageBody,
-    OnGatewayInit,
-    SubscribeMessage,
-    WebSocketGateway,
-    WebSocketServer,
-    WsException,
-} from '@nestjs/websockets';
+import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { ChannelService } from './channel.service';
 import { Server, Socket } from 'socket.io';
-import { forwardRef, Inject } from '@nestjs/common';
-import { SOCKET_PORT } from '../../main';
+import { forwardRef, Inject, UseFilters } from '@nestjs/common';
+import { UseSocketGuard } from '../../common/decorators/use-socket-guard.decorator';
+import { ExceptionFilter } from '../../global/filters/exception.filter';
 
-@WebSocketGateway(SOCKET_PORT, { namespace: 'channel' })
-export class ChannelGateway implements OnGatewayInit {
+@WebSocketGateway(2052, { namespace: 'channel' })
+export class ChannelGateway {
     @WebSocketServer()
     server: Server;
 
     constructor(@Inject(forwardRef(() => ChannelService)) private service: ChannelService) {}
 
-    afterInit() {
-        this.server.use((socket: Socket, next) => {
-            const headers = socket.handshake.headers;
-            const token = headers?.authorization?.split(' ')[1];
-            if (!token) throw new WsException('인증되지 않은 사용자입니다.');
-            next();
-        });
-    }
-
     /**
      * ### 채널 동기화
      * */
     @SubscribeMessage('sync')
+    @UseSocketGuard
+    @UseFilters(ExceptionFilter)
     async sync(@ConnectedSocket() client: Socket, @MessageBody() { userId }: { userId: number }) {
         const resources = await this.service.findManyByUserId(userId);
         await client.join(resources.map((r) => r.id.toString()));
