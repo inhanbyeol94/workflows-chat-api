@@ -1,15 +1,14 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { UserModule } from './resources/user/user.module';
+import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './core/auth/auth.module';
 import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
-import { AuthGuard } from './core/auth/auth.guard';
-import { AuthMiddleware } from './core/auth/auth.middleware';
-import { ChatModule } from './core/chat/chat.module';
 import { CacheModule } from '@nestjs/cache-manager';
-import { ChannelModule } from './resources/channel/channel.module';
-import { ExceptionFilter } from './global/filters/exception.filter';
-import { ValidationPipe } from './global/pipes/validation.pipe';
+import { ChannelModule } from './channel/channel.module';
+import { ExceptionFilter } from '././_global/filters/exception.filter';
+import { ValidationPipe } from '././_global/pipes/validation.pipe';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthMiddleware } from './auth/auth.middleware';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -18,7 +17,6 @@ import { ValidationPipe } from './global/pipes/validation.pipe';
         }),
         UserModule,
         AuthModule,
-        ChatModule,
         ChannelModule,
         CacheModule.register({
             isGlobal: true,
