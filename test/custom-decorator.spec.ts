@@ -1,5 +1,5 @@
-import { UseValidateIfUndefined } from '../src/./_common/decorators/use-validate-if-undefined.decorator';
 import { IsBoolean, IsDate, IsInt, IsOptional, IsString, validate } from 'class-validator';
+import { UseValidateIfUndefined } from '@common/decorators/use-validate-if-undefined.decorator';
 
 describe('custom decorator test', () => {
     it('@UseValidateIfUndefined()', async () => {

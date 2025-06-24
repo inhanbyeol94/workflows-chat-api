@@ -15,5 +15,5 @@ model User {
   messages        Message[] /// 작성한 메세지
   createdChannels Channel[] /// 생성한 채널
 
-  @@map("user")
+  @@map("modules.user")
 }

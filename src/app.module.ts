@@ -1,14 +1,14 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { UserModule } from './user/user.module';
+import { UserModule } from '@modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { CacheModule } from '@nestjs/cache-manager';
-import { ChannelModule } from './channel/channel.module';
-import { ExceptionFilter } from '././_global/filters/exception.filter';
-import { ValidationPipe } from '././_global/pipes/validation.pipe';
-import { AuthGuard } from './auth/auth.guard';
-import { AuthMiddleware } from './auth/auth.middleware';
-import { AuthModule } from './auth/auth.module';
+import { ChannelModule } from '@modules/channel/channel.module';
+import { AuthGuard } from '@common/guards/auth.guard';
+import { AuthMiddleware } from '@common/middlewares/auth.middleware';
+import { AuthModule } from '@modules/auth/auth.module';
+import { ExceptionFilter } from '@common/filters/exception.filter';
+import { ValidationPipe } from '@common/pipes/validation.pipe';
 
 @Module({
     imports: [

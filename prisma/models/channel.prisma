@@ -12,5 +12,5 @@ model Channel {
   users       ChannelUsers[] /// 채널에 속한 사용자
   messages    Message[] /// 채널에서 발생한 메세지
 
-  @@map("channel")
+  @@map("modules.channel")
 }

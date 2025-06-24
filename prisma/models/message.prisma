@@ -8,8 +8,8 @@ model Message {
   updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(3) /// 수정일
   deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3) /// 삭제일 (null인 경우 삭제되지 않음)
 
-  user    User    @relation(fields: [userId], references: [id]) /// 사용자
-  channel Channel @relation(fields: [channelId], references: [id]) /// 채널
+  modules.user    User    @relation(fields: [userId], references: [id]) /// 사용자
+  modules.channel Channel @relation(fields: [channelId], references: [id]) /// 채널
 
-  @@map("message")
+  @@map("modules.message")
 }

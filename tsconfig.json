@@ -2,6 +2,11 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "commonjs",
+    "paths": {
+      "@common/*": ["./src/common/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@database/*": ["./src/modules/database/generated/*"]
+    },
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
