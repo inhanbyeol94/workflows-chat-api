@@ -9,6 +9,7 @@ import { AuthMiddleware } from '@common/middlewares/auth.middleware';
 import { AuthModule } from '@modules/auth/auth.module';
 import { ExceptionFilter } from '@common/filters/exception.filter';
 import { ValidationPipe } from '@common/pipes/validation.pipe';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
     imports: [
@@ -18,6 +19,9 @@ import { ValidationPipe } from '@common/pipes/validation.pipe';
         UserModule,
         AuthModule,
         ChannelModule,
+        EventEmitterModule.forRoot({
+            global: true,
+        }),
         CacheModule.register({
             isGlobal: true,
             ttl: 0, // 캐시 만료 시간 (0은 만료되지 않음을 의미)

@@ -1,17 +1,17 @@
-import { ConflictException, ForbiddenException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserService } from '@modules/user/user.service';
-import { ChannelGateway } from '@modules/channel/channel.gateway';
 import { ChannelCreateDto } from '@modules/channel/dto/channel-create.dto';
 import { ChannelModifyDto } from '@modules/channel/dto/channel-modify.dto';
 import { ChannelRepository } from '@modules/channel/channel.repository';
 import { AuthPayload } from '@modules/auth/auth.type';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class ChannelService {
     constructor(
         private repository: ChannelRepository,
         private userService: UserService,
-        @Inject(forwardRef(() => ChannelGateway)) private gateway: ChannelGateway,
+        private eventEmitter: EventEmitter2,
     ) {}
 
     /**
@@ -32,7 +32,7 @@ export class ChannelService {
             userIds = [user.id];
         }
 
-        const resource = await this.repository.create({
+        return this.repository.create({
             data: {
                 ...data,
                 creatorId: user.id,
@@ -41,10 +41,6 @@ export class ChannelService {
                 },
             },
         });
-
-        this.gateway.server.emit('call', 'sync');
-
-        return resource;
     }
 
     /**
@@ -58,16 +54,16 @@ export class ChannelService {
         const resource = await this.findByIdOrThrow(id);
         if (resource.creatorId !== user.id && user.role !== 99) throw new ForbiddenException('채널을 수정할 권한이 없습니다.');
         await this.checkNameDuplicate(data.name, id);
-        const update = await this.repository.update({
+
+        const modify = await this.repository.update({
             where: {
                 id,
                 deletedAt: null,
             },
             data,
         });
-        this.gateway.server.emit('call', 'sync');
-        this.gateway.server.to(id.toString()).emit('hook', update);
-        return update;
+        this.eventEmitter.emit('channel.update', modify);
+        return modify;
     }
 
     /**
@@ -87,7 +83,7 @@ export class ChannelService {
                 deletedAt: new Date(),
             },
         });
-        this.gateway.server.emit('call', 'sync');
+        this.eventEmitter.emit('channel.delete', action);
         return action;
     }
 
@@ -133,6 +129,19 @@ export class ChannelService {
                 users: {
                     some: { userId },
                 },
+            },
+        });
+    }
+
+    /**
+     * ### 공개방 목록조회
+     * @desc 공개방 목록을 조회합니다.
+     * */
+    async findManyByPublic() {
+        return this.repository.findMany({
+            where: {
+                deletedAt: null,
+                isSecret: false,
             },
         });
     }

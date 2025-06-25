@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class UserChangePasswordDto {
     @IsNotEmpty()
     @IsString()
-    oldPassword?: string;
+    oldPassword: string;
 
     @IsNotEmpty()
     @IsString()

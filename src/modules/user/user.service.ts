@@ -1,17 +1,24 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { UserModifyDto } from './dto/user-modify.dto';
-import { UserRepository } from '@modules/user/user.repository';
 import { PasswordService } from '@modules/password/password.service';
-import { UserCredentialRepository } from '@modules/user/user-credential.repository';
+import { Database } from '@modules/database/database';
+import { UserDelegate, UserFindManyArgs } from '@database/prisma/models/User';
+import { UserCredentialDelegate } from '@database/prisma/models/UserCredential';
+import { Prisma } from '@database/prisma/client';
+import { Pagination } from '@common/types/pagination.type';
 
 @Injectable()
 export class UserService {
+    private repository: UserDelegate;
+    private credentialRepository: UserCredentialDelegate;
     constructor(
         private passwordService: PasswordService,
-        private repository: UserRepository,
-        private credentialRepository: UserCredentialRepository,
-    ) {}
+        private prisma: Database,
+    ) {
+        this.repository = this.prisma.user;
+        this.credentialRepository = this.prisma.userCredential;
+    }
 
     /**
      * ### 등록
@@ -26,6 +33,7 @@ export class UserService {
         const hash = await this.passwordService.hash(data.password, pepper);
 
         const { loginId, password, ...fields } = data;
+
         return this.repository.create({
             data: {
                 ...fields,
@@ -122,6 +130,30 @@ export class UserService {
         return resource;
     }
 
+    async findList(data: Pagination & { channelId?: number; name?: string }) {
+        const args = Prisma.validator<UserFindManyArgs>()({
+            where: {
+                channels: {
+                    some: {
+                        channelId: data.channelId,
+                    },
+                },
+                name: {
+                    contains: data.name,
+                    mode: 'insensitive',
+                },
+                deletedAt: null,
+            },
+            take: data.take,
+            skip: (data.page - 1) * data.take,
+            orderBy: {
+                id: 'asc',
+            },
+        });
+
+        return this.prisma.$transaction([this.repository.findMany(args), this.repository.count({ where: args.where })]);
+    }
+
     /**
      * ### 사용자 전체 조회 (아이디만 반환)
      * */
@@ -133,7 +165,7 @@ export class UserService {
      * ### 로그인 아이디로 조회
      * @desc 로그인 아이디 조회 시 deletedAt이 null인 사용자만 조회합니다.
      * @role 공통
-     * @include modules.user
+     * @include user
      * @throws NotFoundException 아이디가 존재하지 않는 경우
      * */
     async credentialFindByLoginIdWithUserOrThrow(loginId: string) {

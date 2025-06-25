@@ -7,8 +7,11 @@ export class BaseController {
         this.NAME = name;
     }
 
+    protected response(message: string): { message: string; code: number; data: null };
+    protected response<T>(message: string, data: T): { message: string; code: number; data: T };
     protected response<T>(message: string, data?: T) {
-        return { message, data: data ? data : null, code: 0 };
+        if (data) return { message, data: data, code: 0 };
+        return { message, data: null, code: 0 };
     }
 
     protected get CREATE_MESSAGE() {

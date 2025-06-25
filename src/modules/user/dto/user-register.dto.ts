@@ -1,38 +1,11 @@
-import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IntersectionType, PickType } from '@nestjs/swagger';
+import { User } from '@modules/user/models/user.model';
+import { UserCredential } from '@modules/user/models/user-credential.model';
 
-export class UserRegisterDto {
-    @IsNotEmpty()
-    @IsString()
-    loginId: string;
+export class UserRegisterDto extends IntersectionType(
+    // 프로필 정보
+    PickType(User, ['role', 'name', 'profileImageUrl', 'email', 'phoneNumber', 'employeeCode'] as const),
 
-    @IsNotEmpty()
-    @IsString()
-    password: string;
-
-    @IsInt()
-    role: number;
-
-    @IsNotEmpty()
-    @IsString()
-    name: string;
-
-    @IsOptional()
-    @IsNotEmpty()
-    @IsString()
-    profileImageUrl: string | null;
-
-    @IsOptional()
-    @IsNotEmpty()
-    @IsString()
-    email: string | null;
-
-    @IsOptional()
-    @IsNotEmpty()
-    @IsString()
-    phoneNumber: string | null;
-
-    @IsOptional()
-    @IsNotEmpty()
-    @IsString()
-    employeeCode: string | null;
-}
+    // 민감 정보
+    PickType(UserCredential, ['loginId', 'password']),
+) {}

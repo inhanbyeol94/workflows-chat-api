@@ -1,15 +1,14 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { ChannelService } from './channel.service';
 import { ChannelRepository } from './channel.repository';
 import { ChannelGateway } from './channel.gateway';
-import { UserModule } from '../user/user.module';
 import { ChannelController } from './channel.controller';
 
 @Module({
-    imports: [DatabaseModule, forwardRef(() => UserModule)],
+    imports: [DatabaseModule],
     controllers: [ChannelController],
     providers: [ChannelService, ChannelRepository, ChannelGateway],
-    exports: [],
+    exports: [ChannelService, ChannelGateway],
 })
 export class ChannelModule {}
