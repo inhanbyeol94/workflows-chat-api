@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from '@modules/user/user.module';
-import { ChannelModule } from '@modules/channel/channel.module';
 import { ChannelUsersService } from '@modules/channel-users/channel-users.service';
+import { DatabaseModule } from '@modules/database/database.module';
 
 @Module({
-    imports: [UserModule, ChannelModule],
+    imports: [DatabaseModule],
     providers: [ChannelUsersService],
 })
 export class ChannelUsersModule {}

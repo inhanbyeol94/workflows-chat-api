@@ -1,18 +1,20 @@
 import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { UserService } from '@modules/user/user.service';
 import { ChannelCreateDto } from '@modules/channel/dto/channel-create.dto';
 import { ChannelModifyDto } from '@modules/channel/dto/channel-modify.dto';
-import { ChannelRepository } from '@modules/channel/channel.repository';
 import { AuthPayload } from '@modules/auth/auth.type';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ChannelDelegate } from '@database/prisma/models/Channel';
+import { Database } from '@modules/database/database';
 
 @Injectable()
 export class ChannelService {
+    private repository: ChannelDelegate;
     constructor(
-        private repository: ChannelRepository,
-        private userService: UserService,
         private eventEmitter: EventEmitter2,
-    ) {}
+        private prisma: Database,
+    ) {
+        this.repository = prisma.channel;
+    }
 
     /**
      * ### 생성
@@ -22,23 +24,10 @@ export class ChannelService {
     async create(data: ChannelCreateDto, user: AuthPayload) {
         await this.checkNameDuplicate(data.name);
 
-        let userIds: number[] = [];
-
-        if (!data.isSecret) {
-            // 비밀 채널이 아닌 경우, 모든 사용자에게 채널을 추가합니다.
-            const users = await this.userService.findManyIds();
-            userIds = users.map((u) => u.id);
-        } else {
-            userIds = [user.id];
-        }
-
         return this.repository.create({
             data: {
                 ...data,
                 creatorId: user.id,
-                users: {
-                    create: userIds?.map((userId) => ({ userId })) || [],
-                },
             },
         });
     }
