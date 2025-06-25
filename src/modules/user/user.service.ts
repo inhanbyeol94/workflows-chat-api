@@ -147,7 +147,7 @@ export class UserService {
             take: data.take,
             skip: (data.page - 1) * data.take,
             orderBy: {
-                id: 'asc',
+                name: 'asc',
             },
         });
 
